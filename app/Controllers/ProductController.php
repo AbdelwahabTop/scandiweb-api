@@ -14,7 +14,10 @@ class ProductController extends Controller
         $this->gateway = $this->model("ProductsGateway");
     }
 
+<<<<<<< HEAD
     #[Route("/products")]
+=======
+>>>>>>> 155de49cf8fc30503e1da7e9c41a06ad1d78db41
     public function getAll(): string
     {
         return json_encode($this->gateway->getProducts());
@@ -23,6 +26,7 @@ class ProductController extends Controller
     public function create(): string
     {
         $data = (array) json_decode(file_get_contents("php://input"), true);
+        var_dump($data);
 
         $this->gateway->sku = $data['sku'];
         $this->gateway->name = $data['name'];
