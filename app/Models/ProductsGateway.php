@@ -5,7 +5,7 @@ use App\Model;
 
 class ProductsGateway extends Model
 {
-    public function getProducts()//: array
+    public function getProducts(): array
     {
         $sqlQuery = "SELECT * FROM `products`";
 
@@ -23,7 +23,7 @@ class ProductsGateway extends Model
     {
         try{
             $sqlQuery = "INSERT INTO `products` (sku, name, price, attribute)
-                        VALUES (:sku, :name, :price, :attribute)"; //placeholders to avoid injection
+                        VALUES (:sku, :name, :price, :attribute)";
             $statement = $this->db->prepare($sqlQuery);
 
 
@@ -32,9 +32,12 @@ class ProductsGateway extends Model
             $statement->bindValue(":price", $this->price, \PDO::PARAM_STR);
             $statement->bindValue(":attribute", $this->attribute, \PDO::PARAM_STR);
 
-            $statement->execute();
-
-            return "Product {$this->sku} Added Successfully";
+            if ($statement->execute()) {
+                $this->id = $this->db->lastInsertId();
+                return "Product {$this->sku} Added Successfully";
+            }
+            
+            return false;
         } catch (\PDOException $e) {
             return "Error: " . $e->getMessage();
         }
@@ -44,7 +47,7 @@ class ProductsGateway extends Model
     {
         try {
             $qMarks = str_repeat('?,', count($this->ids) - 1) . '?';
-            $sqlQuery = "DELETE FROM `products` WHERE sku IN ($qMarks)";
+            $sqlQuery = "DELETE FROM `products` WHERE id IN ($qMarks)";
             $statement = $this->db->prepare($sqlQuery);
 
             foreach($this->ids as $k => $id){
