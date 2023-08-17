@@ -2,12 +2,13 @@
 
 namespace App;
 
-abstract class Controller {
+abstract class Controller
+{
 
-    public function model($model) {
+    public function model($model)
+    {
         $class = "App\Models\\" . $model;
 
         return new $class();
     }
-
 }

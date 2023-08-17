@@ -7,13 +7,13 @@ use App\Controller;
 class ProductController extends Controller
 {
     private $gateway;
-    
+
     public function __construct()
     {
         $this->gateway = $this->model("ProductsGateway");
     }
 
-    
+
     public function getAll(): string
     {
         return json_encode($this->gateway->getProducts());
@@ -39,5 +39,4 @@ class ProductController extends Controller
         $status = $this->gateway->delete();
         return $status;
     }
-
 }
