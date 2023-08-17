@@ -8,7 +8,11 @@ use App\Exceptions\RouteNotFoundException;
 
 class Router
 {
-    private array $routes;
+    private array $routes = [];
+
+    public function registerRoutesFromControllerAttributes(array $controllers)
+    {
+    }
 
     public function register(string $requestMethod, string $route, callable|array $action): self
     {
@@ -42,7 +46,7 @@ class Router
         $route = explode('?', $requestUri)[0];
         $action = $this->routes[$requestMethod][$route] ?? null;
 
-        if (! $action) {
+        if (!$action) {
             throw new RouteNotFoundException();
         }
 
