@@ -78,7 +78,7 @@ class RouterTest extends TestCase
 
     /**
      * @test
-     * @dataProvider routeNotFoundCases
+     * @dataProvider \Tests\DataProviders\RouterDataProvider::routeNotFoundCases
      */
     public function it_throws_route_not_found_exception(
         string $requestUri,
@@ -100,13 +100,33 @@ class RouterTest extends TestCase
         $this->router->resolve($requestUri, $requestMethod);
     }
 
-    public function routeNotFoundCases(): array
+    /** @test */
+    public function it_resolves_route_from_a_closure(): void
     {
-        return [
-            ['/products', 'get'],
-            ['/products', 'post'],
-            ['/products', 'put'],
-            ['/users', 'post'],
-        ];
+        $this->router->get('/products', fn () => [1, 2, 3]);
+
+        $this->assertSame(
+            [1, 2, 3],
+            $this->router->resolve('/products', 'get')
+        );
+    }
+
+    /** @test */
+    public function it_resolves_route(): void
+    {
+        $products = new class()
+        {
+            public function index(): array
+            {
+                return [1, 2, 3];
+            }
+        };
+
+        $this->router->get('/products', [$products::class, 'index']);
+
+        $this->assertSame(
+            [1, 2, 3],
+            $this->router->resolve('/products', 'get')
+        );
     }
 }

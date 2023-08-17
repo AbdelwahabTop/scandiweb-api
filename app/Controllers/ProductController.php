@@ -13,7 +13,6 @@ class ProductController extends Controller
         $this->gateway = $this->model("ProductsGateway");
     }
 
-
     public function getAll(): string
     {
         return json_encode($this->gateway->getProducts());
@@ -22,6 +21,7 @@ class ProductController extends Controller
     public function create(): string
     {
         $data = (array) json_decode(file_get_contents("php://input"), true);
+        var_dump($data);
 
         $this->gateway->sku = $data['sku'];
         $this->gateway->name = $data['name'];
