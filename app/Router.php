@@ -9,13 +9,10 @@ use App\Exceptions\RouteNotFoundException;
 class Router
 {
     private array $routes = [];
-<<<<<<< HEAD
 
     public function registerRoutesFromControllerAttributes(array $controllers)
     {
     }
-=======
->>>>>>> 155de49cf8fc30503e1da7e9c41a06ad1d78db41
 
     public function register(string $requestMethod, string $route, callable|array $action): self
     {
