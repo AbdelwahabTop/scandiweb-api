@@ -14,7 +14,8 @@ class ProductController extends Controller
         $this->gateway = $this->model("ProductsGateway");
     }
 
-    #[Route("/products")]
+    #[Get("/products"))]
+    #[Route("/products", "head")]
     public function getAll(): string
     {
         return json_encode($this->gateway->getProducts());

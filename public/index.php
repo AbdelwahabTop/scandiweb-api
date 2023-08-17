@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -18,15 +18,19 @@ use App\Controllers\ProductController;
 
 $router = new Router();
 
+$router->registerRoutesFromControllerAttributes(
+    [
+        ProductController::class,
+    ]
+);
+
 $router
     ->get('/products', [ProductController::class, 'getAll'])
     ->post('/products', [ProductController::class, 'create'])
     ->delete('/products', [ProductController::class, 'delete']);
-    
+
 (new App(
     $router,
     ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']],
     new Config($_ENV)
 ))->run();
-
-
