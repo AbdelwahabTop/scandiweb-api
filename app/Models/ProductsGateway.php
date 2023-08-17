@@ -1,7 +1,16 @@
 <?php
+
 namespace App\Models;
 
 use App\Model;
+
+/**
+ * @property int $id
+ * @property string $sku
+ * @property string $name
+ * @property int $price
+ * @property string $attribute
+ */
 
 class ProductsGateway extends Model
 {
@@ -13,7 +22,7 @@ class ProductsGateway extends Model
 
         $data = [];
 
-        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)){
+        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
             $data[] = $row;
         }
         return $data;
@@ -21,7 +30,7 @@ class ProductsGateway extends Model
 
     public function create(): string
     {
-        try{
+        try {
             $sqlQuery = "INSERT INTO `products` (sku, name, price, attribute)
                         VALUES (:sku, :name, :price, :attribute)";
             $statement = $this->db->prepare($sqlQuery);
@@ -36,7 +45,7 @@ class ProductsGateway extends Model
                 $this->id = $this->db->lastInsertId();
                 return "Product {$this->sku} Added Successfully";
             }
-            
+
             return false;
         } catch (\PDOException $e) {
             return "Error: " . $e->getMessage();
@@ -50,10 +59,10 @@ class ProductsGateway extends Model
             $sqlQuery = "DELETE FROM `products` WHERE id IN ($qMarks)";
             $statement = $this->db->prepare($sqlQuery);
 
-            foreach($this->ids as $k => $id){
-                $statement->bindValue(($k+1), $id);
+            foreach ($this->ids as $k => $id) {
+                $statement->bindValue(($k + 1), $id);
             }
-            
+
             $statement->execute();
 
             return "Deleted Successfully";
@@ -69,8 +78,6 @@ class ProductsGateway extends Model
 
     public function __get(string $name)
     {
-        echo $this->$name;
         return $this->$name;
     }
-
 }
