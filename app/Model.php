@@ -16,7 +16,7 @@ abstract class Model
         $this->db = App::db();
     }
 
-    abstract protected function getProducts();
+    abstract protected function get();
     abstract protected function create();
     abstract protected function delete();
 }

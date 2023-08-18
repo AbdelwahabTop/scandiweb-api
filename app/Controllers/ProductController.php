@@ -3,19 +3,20 @@
 namespace App\Controllers;
 
 use App\Controller;
+use App\Models\ProductsModel;
 
 class ProductController extends Controller
 {
-    private $gateway;
+    private ProductsModel $gateway;
 
     public function __construct()
     {
-        $this->gateway = $this->model("ProductsGateway");
+        $this->gateway = $this->model("ProductsModel");
     }
 
     public function getAll(): string
     {
-        return json_encode($this->gateway->getProducts());
+        return json_encode($this->gateway->get());
     }
 
     public function create(): string

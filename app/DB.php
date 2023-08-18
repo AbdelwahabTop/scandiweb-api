@@ -17,7 +17,7 @@ class DB
     public function __construct(array $config)
     {
         $defaultOptions = [
-            PDO::ATTR_EMULATE_PREPARES => false,
+            PDO::ATTR_EMULATE_PREPARES   => false,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         ];
 
@@ -29,7 +29,7 @@ class DB
                 $config['options'] ?? $defaultOptions
             );
         } catch (\PDOException $e) {
-            throw new \PDOException($e->getMessage(), $e->getCode());
+            throw new \PDOException($e->getMessage(), (int) $e->getCode());
         }
     }
 

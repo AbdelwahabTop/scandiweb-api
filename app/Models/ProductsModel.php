@@ -12,9 +12,9 @@ use App\Model;
  * @property string $attribute
  */
 
-class ProductsGateway extends Model
+class ProductsModel extends Model
 {
-    public function getProducts(): array
+    public function get(): array
     {
         $sqlQuery = "SELECT * FROM `products`";
 
