@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Model;
+use App\Models\Model;
 
 /**
  * @property int $id
@@ -35,7 +35,6 @@ class ProductsModel extends Model
                         VALUES (:sku, :name, :price, :attribute)";
             $statement = $this->db->prepare($sqlQuery);
 
-
             $statement->bindValue(":sku", $this->sku, \PDO::PARAM_STR);
             $statement->bindValue(":name", $this->name, \PDO::PARAM_STR);
             $statement->bindValue(":price", $this->price, \PDO::PARAM_STR);
@@ -43,6 +42,7 @@ class ProductsModel extends Model
 
             if ($statement->execute()) {
                 $this->id = $this->db->lastInsertId();
+
                 return "Product {$this->sku} Added Successfully";
             }
 

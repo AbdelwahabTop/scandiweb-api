@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Models;
 
-use App\DB;
 use App\App;
+use App\Database\DB;
 
 abstract class Model
 {

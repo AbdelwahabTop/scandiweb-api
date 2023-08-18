@@ -13,7 +13,6 @@ class Router
     public function register(string $requestMethod, string $route, callable|array $action): self
     {
         $this->routes[$requestMethod][$route] = $action;
-
         return $this;
     }
 

@@ -12,8 +12,8 @@ header("Access-Control-Allow-Methods: GET, POST, DELETE");
 header("Content-type: application/json; charset: UTF-8");
 
 use App\App;
-use App\Config;
 use App\Router;
+use App\Database\Config;
 use App\Controllers\ProductController;
 
 $router = new Router();
