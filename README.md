@@ -8,7 +8,7 @@
 
 * **URL**
 
-  /products
+  https://scandiweb-abdo.000webhostapp.com/products
 
 * **Method:**
 
@@ -39,7 +39,7 @@ attribute: "Size: 200 MB"
 
   ```axios
   async () => {
-  let products = await axios.get(PRODUCTS_URL);
+  let products = await axios.get("https://scandiweb-abdo.000webhostapp.com/products");
   return products;
    };
   ```
@@ -50,15 +50,11 @@ attribute: "Size: 200 MB"
 
 * **URL**
 
-  /listing/products
+  https://scandiweb-abdo.000webhostapp.com/products
 
 * **Method:**
 
   `POST`
-  
-*  **URL Params**
-  
-   None
 
 * **Data Params**
 
@@ -70,82 +66,50 @@ attribute: "Size: 200 MB"
   
   `description:String `
 
-* **Success Response:**
-
-  * **Code:** 201 <br />
-    **Content:** `
-{
-id: "2",
-sku: "JVC990",
-name: "Acme Disc",
-price: "50.60",
-description: "Size: 700 MB"
-}`
- 
-* **Error Response:**
-
-  * **Code:** 400 <br />
-    **Content:** `{ message : "Error Could not make product either sku duplicated or a field is empty" }`
-
- 
 * **Sample Call:**
 
-  ```javascript
-    $.ajax({
-      url: "/listing/products",
-      dataType: "json",
-      data: {sku: "JVC990", name: "Acme Disc", price: "50.60", description: "Size: 700 MB"},
-      type : "POST",
-      success : function(r) {
-        console.log(r);
-      }
-    });
+  ```axios
+    let temp = {
+    id: "2",
+    sku: "JVC990",
+    name: "Acme Disc",
+    price: "50.60",
+    attribute: "Size: 700 MB"
+    }
+  
+   async (temp) => {
+  return await axios.post("https://scandiweb-abdo.000webhostapp.com/products", JSON.stringify(temp));
+  };
   ```
 ----
- **Delete Product/s**
+ **Delete Products**
 ----
   Deletes multiple or single product.
 
 * **URL**
 
-  /listing/products
+  https://scandiweb-abdo.000webhostapp.com/products/delete
+
+> Note: Due to the limitations of 000webhostapp, I had to use the POST method instead of the DELETE method to delete products. 
+As a result, I added an additional route (/products/delete) alongside the existing route (/products) to handle the deletion. 
+This was necessary because my application relies on registering routes and methods separately,and I couldn't use the same route with the POST method.
 
 * **Method:**
 
-  `GET`
-  
-*  **URL Params**
-  
-   None
+  `POST`
 
 * **Data Params**
 
-  `id: Comma Seperated string containing 1 or more id`
-
-* **Success Response:**
-
-  * **Code:** 204 <br />
-    **Content:**
-    
-    no content
- 
-* **Error Response:**
-
-  * **Code:** 404 <br />
-    **Content:** `{ message : "Error could not find product with such id" }`
-
+  `ids: [1, 2, 3, 4]`
  
 * **Sample Call:**
 
-  ```javascript
-    $.ajax({
-      url: "/listing/products",
-      dataType: "json",
-      data:{id:"2,5,7,15"},
-      type : "DELETE",
-      success : function(r) {
-        console.log(r);
-      }
-    });
+  ```axios
+  let temp = {
+    ids: [1, 2, 3, 4]
+  }
+    async (temp) => {
+    return await axios.post("https://scandiweb-abdo.000webhostapp.com/products/delete", JSON.stringify(temp));
+  };
   ```
  
