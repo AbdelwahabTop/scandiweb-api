@@ -64,7 +64,7 @@ attribute: "Size: 200 MB"
   
   `price:Float string `
   
-  `description:String `
+  `attribute:String `
 
 * **Sample Call:**
 
