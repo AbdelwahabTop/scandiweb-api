@@ -1,6 +1,11 @@
 # Rest API in MVC and OOP for a simple ecommerce store
 # [Front-end Part](https://github.com/AbdelwahabTop/scandiweb-ui)
 
+Tools
+  * PHP 8.2
+  * Docker
+  * Nginx
+  * OOP - MVC
  
  **Get Products**
 ----
