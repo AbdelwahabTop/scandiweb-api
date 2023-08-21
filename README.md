@@ -2,7 +2,7 @@
 # [Front-end Part](https://github.com/AbdelwahabTop/scandiweb-ui)
 
  
- **Show Products**
+ **Get Products**
 ----
   Returns json data of all products.
 
@@ -44,7 +44,7 @@ attribute: "Size: 200 MB"
    };
   ```
 ----
- **Create Product**
+ **Add Product**
 ----
   Returns json data of the new product.
 
