@@ -91,8 +91,7 @@ attribute: "Size: 200 MB"
   https://scandiweb-abdo.000webhostapp.com/products/delete
 
 > Note: Due to the limitations of 000webhostapp, I had to use the POST method instead of the DELETE method to delete products. 
-As a result, I added an additional route (/products/delete) alongside the existing route (/products) to handle the deletion. 
-This was necessary because my application relies on registering routes and methods separately,and I couldn't use the same route with the POST method.
+As a result, I added an additional route (/products/delete) alongside the existing route (/products) to handle the deletion. I have only one route for all methods but I changed on webhost code. This was necessary because my application relies on registering routes and methods ,and I couldn't use the same route with the POST method.
 
 * **Method:**
 
