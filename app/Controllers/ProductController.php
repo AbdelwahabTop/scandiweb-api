@@ -22,22 +22,39 @@ class ProductController extends Controller
     public function create(): string
     {
         $data = (array) json_decode(file_get_contents("php://input"), true);
-        var_dump($data);
 
-        $this->gateway->sku = $data['sku'];
-        $this->gateway->name = $data['name'];
-        $this->gateway->price = $data['price'];
-        $this->gateway->attribute = $data['attribute'];
+        $this->gateway->setSku($data['sku']);
+        $this->gateway->setName($data['name']);
+        $this->gateway->setPrice($data['price']);
+        $this->gateway->setAttribute($data['attribute']);
+
         $status = $this->gateway->create();
-        return $status;
+
+        if ($status) {
+            http_response_code(201);
+            return "Product {$this->gateway->getSku()} Added Successfully";
+        } else {
+            http_response_code(400);
+            return "Error Adding Product {$this->gateway->getSku()}";
+        }
     }
 
     public function delete(): string
     {
         $data = (array) json_decode(file_get_contents("php://input"), true);
-        var_dump($data);
-        $this->gateway->ids = $data["ids"];
+
+        $this->gateway->setIds($data["ids"]);
+
         $status = $this->gateway->delete();
+
+        if ($status) {
+            http_response_code(200);
+            return "Product {$this->gateway->getIds()} Deleted Successfully";
+        } else {
+            http_response_code(400);
+            return "Error Deleting Product {$this->gateway->getIds()}";
+        }
+
         return $status;
     }
 }

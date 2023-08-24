@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
+use Exception;
 use App\Models\Model;
-
-/**
- * @property int $id
- * @property string $sku
- * @property string $name
- * @property int $price
- * @property string $attribute
- */
 
 class ProductsModel extends Model
 {
+    private $id;
+    private $ids;
+    private $sku;
+    private $name;
+    private $price;
+    private $attribute;
+
     public function get(): array
     {
         $sqlQuery = "SELECT * FROM `products`";
@@ -41,18 +41,18 @@ class ProductsModel extends Model
             $statement->bindValue(":attribute", $this->attribute, \PDO::PARAM_STR);
 
             if ($statement->execute()) {
-                $this->id = $this->db->lastInsertId();
+                $this->setId($this->db->lastInsertId());
 
-                return "Product {$this->sku} Added Successfully";
+                return true;
             }
 
             return false;
         } catch (\PDOException $e) {
-            return "Error: " . $e->getMessage();
+            return false;
         }
     }
 
-    public function delete(): string
+    public function delete(): bool
     {
         try {
             $qMarks = str_repeat('?,', count($this->ids) - 1) . '?';
@@ -65,19 +65,102 @@ class ProductsModel extends Model
 
             $statement->execute();
 
-            return "Deleted Successfully";
+            if ($statement->rowCount() > 0) {
+                return true;
+            }
+
+            return false;
         } catch (\PDOException $e) {
-            return "Error: " . $e->getMessage();
+            return false;
         }
     }
 
-    public function __set(string $name, $value)
+    // Setters
+    public function setId($id)
     {
-        return $this->$name = $value;
+        return $this->id = $id;
     }
 
-    public function __get(string $name)
+    public function setIds(array $ids)
     {
-        return $this->$name;
+        foreach ($ids as $id) {
+            if ($id <= 0) {
+                throw new Exception("Invalid ID value. IDs must be positive integers.");
+            }
+        }
+        $this->ids = $ids;
+    }
+
+    public function setSku(string $sku): void
+    {
+        if (strlen($sku) > 255 || strlen($sku) < 1 || !ctype_alnum($sku)) {
+            throw new Exception(
+                "Invalid SKU value. SKU must be alphanumeric and between 1 and 255 characters long."
+            );
+        }
+
+        $this->sku = $sku;
+    }
+
+    public function setName(string $name): void
+    {
+        if (strlen($name) > 255 || strlen($name) < 1) {
+            throw new Exception(
+                "Invalid Name value. Name must be between 1 and 255 characters long."
+            );
+        }
+
+        $this->name = $name;
+    }
+
+    public function setPrice(float|string $price): void
+    {
+        if ($price < 0) {
+            throw new Exception(
+                "Invalid Price value. Price must be a positive number."
+            );
+        }
+        $this->price = $price;
+    }
+
+    public function setAttribute(string $attribute): void
+    {
+        if (strlen($attribute) > 255 || strlen($attribute) < 1) {
+            throw new Exception(
+                "Invalid Attribute value. Attribute must be between 1 and 255 characters long."
+            );
+        }
+        $this->attribute = $attribute;
+    }
+
+    // Getters
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getIds()
+    {
+        return $this->ids;
+    }
+
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function getAttribute()
+    {
+        return $this->attribute;
     }
 }
