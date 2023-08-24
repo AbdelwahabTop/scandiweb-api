@@ -23,19 +23,19 @@ class ProductController extends Controller
     {
         $data = (array) json_decode(file_get_contents("php://input"), true);
 
-        $this->gateway->setSku($data['sku']);
-        $this->gateway->setName($data['name']);
-        $this->gateway->setPrice($data['price']);
-        $this->gateway->setAttribute($data['attribute']);
+        $this->gateway->sku = $data['sku'];
+        $this->gateway->name = $data['name'];
+        $this->gateway->price = $data['price'];
+        $this->gateway->attribute = $data['attribute'];
 
         $status = $this->gateway->create();
 
         if ($status) {
             http_response_code(201);
-            return "Product {$this->gateway->getSku()} Added Successfully";
+            return "Product {$this->gateway->sku} Added Successfully";
         } else {
             http_response_code(400);
-            return "Error Adding Product {$this->gateway->getSku()}";
+            return "Error Adding Product {$this->gateway->sku}";
         }
     }
 
@@ -43,7 +43,7 @@ class ProductController extends Controller
     {
         $data = (array) json_decode(file_get_contents("php://input"), true);
 
-        $this->gateway->setIds($data["ids"]);
+        $this->gateway->ids = $data["ids"];
 
         $status = $this->gateway->delete();
 
