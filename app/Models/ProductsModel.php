@@ -91,7 +91,9 @@ class ProductsModel extends Model
     {
         foreach ($ids as $id) {
             if ($id <= 0) {
-                throw new Exception("Invalid ID value. IDs must be positive integers.");
+                throw new Exception(
+                    "Invalid ID value. IDs must be positive integers."
+                );
             }
         }
         $this->ids = $ids;
