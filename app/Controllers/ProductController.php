@@ -49,10 +49,10 @@ class ProductController extends Controller
 
         if ($status) {
             http_response_code(200);
-            return "Product {$this->gateway->getIds()} Deleted Successfully";
+            return "Products Deleted Successfully";
         } else {
             http_response_code(400);
-            return "Error Deleting Product {$this->gateway->getIds()}";
+            return "Error Deleting Product";
         }
 
         return $status;

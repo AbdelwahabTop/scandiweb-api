@@ -148,19 +148,4 @@ class ProductsModel extends Model
     {
         return $this->sku;
     }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    public function getAttribute()
-    {
-        return $this->attribute;
-    }
 }
