@@ -4,6 +4,12 @@ namespace App\Models;
 
 use Exception;
 use App\Models\Model;
+/*
+In the main bracnh, I used setters to validate the data before inserting it into the database.
+but in (magic-setters-getters) branch, I used magic methods to decrease the code size.
+branch link for bitbucket: https://bitbucket.org/abdelwahab5/scandiweb-api/src/magic-setters-getters/app/Models/ProductsModel.php
+for github: https://github.com/AbdelwahabTop/scandiweb-api/blob/magic-setters-getters/app/Models/ProductsModel.php
+*/
 
 class ProductsModel extends Model
 {
