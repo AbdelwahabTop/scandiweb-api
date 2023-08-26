@@ -23,10 +23,15 @@ class ProductController extends Controller
     {
         $data = (array) json_decode(file_get_contents("php://input"), true);
 
-        $this->gateway->setSku($data['sku']);
-        $this->gateway->setName($data['name']);
-        $this->gateway->setPrice($data['price']);
-        $this->gateway->setAttribute($data['attribute']);
+        try {
+            $this->gateway->setSku($data['sku']);
+            $this->gateway->setName($data['name']);
+            $this->gateway->setPrice($data['price']);
+            $this->gateway->setAttribute($data['attribute']);
+        } catch (\Exception $e) {
+            http_response_code(400);
+            return $e->getMessage();
+        }
 
         $status = $this->gateway->create();
 
@@ -43,8 +48,13 @@ class ProductController extends Controller
     {
         $data = (array) json_decode(file_get_contents("php://input"), true);
 
-        $this->gateway->setIds($data["ids"]);
-
+        try {
+            $this->gateway->setIds($data["ids"]);
+        } catch (\Exception $e) {
+            http_response_code(400);
+            return $e->getMessage();
+        }
+        
         $status = $this->gateway->delete();
 
         if ($status) {
