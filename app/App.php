@@ -1,4 +1,5 @@
 <?php
+// This app is responsable for bootstraping and running our application
 
 declare(strict_types=1);
 

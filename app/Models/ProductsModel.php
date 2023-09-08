@@ -28,7 +28,7 @@ class ProductsModel extends Model
 
         $data = [];
 
-        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $statement->fetch()) {
             $data[] = $row;
         }
         return $data;
@@ -43,7 +43,7 @@ class ProductsModel extends Model
 
             $statement->bindValue(":sku", $this->sku, \PDO::PARAM_STR);
             $statement->bindValue(":name", $this->name, \PDO::PARAM_STR);
-            $statement->bindValue(":price", $this->price, \PDO::PARAM_STR);
+            $statement->bindValue(":price", $this->price, \PDO::PARAM_INT);
             $statement->bindValue(":attribute", $this->attribute, \PDO::PARAM_STR);
 
             if ($statement->execute()) {
