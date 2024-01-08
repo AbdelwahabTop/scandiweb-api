@@ -2,8 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Models\DVD;
+use App\Models\Book;
+use App\Models\Furniture;
 use App\Models\ProductsModel;
 use App\Controllers\Controller;
+use App\Factories\ProductFactory;
 
 class ProductController extends Controller
 {
@@ -19,25 +23,34 @@ class ProductController extends Controller
         return json_encode($this->gateway->get());
     }
 
-    public function create(): string
+    public function create()
     {
         $data = (array) json_decode(file_get_contents("php://input"), true);
+        // echo var_dump($data);
+        var_dump($data['attributes']);
+
+
+        $productClass = ProductFactory::create(
+            $data['type'],
+        );
 
         try {
-            $this->gateway->setSku($data['sku']);
-            $this->gateway->setName($data['name']);
-            $this->gateway->setPrice($data['price']);
-            $this->gateway->setAttribute($data['attribute']);
+            $productClass->setSku($data['sku']);
+            $productClass->setName($data['name']);
+            $productClass->setPrice($data['price']);
+            $description = $productClass->description($data['attributes']);
+            $productClass->setAttribute($description);
+
         } catch (\Exception $e) {
             http_response_code(400);
             return $e->getMessage();
         }
 
-        $status = $this->gateway->create();
+        $status = $productClass->create();
 
         if ($status) {
             http_response_code(201);
-            return "Product {$this->gateway->getSku()} Added Successfully";
+            return "Product {$productClass->getSku()} Added Successfully";
         } else {
             http_response_code(400);
             return "Error Adding Product {$this->gateway->getSku()}";
@@ -54,7 +67,7 @@ class ProductController extends Controller
             http_response_code(400);
             return $e->getMessage();
         }
-        
+
         $status = $this->gateway->delete();
 
         if ($status) {
