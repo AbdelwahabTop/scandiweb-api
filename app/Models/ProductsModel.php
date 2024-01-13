@@ -6,10 +6,7 @@ Instead, we utilize these methods from a more generic class.*/
 
 namespace App\Models;
 
-use App\App;
 use Exception;
-use App\Database\DB;
-use App\Models\Model;
 
 abstract class ProductsModel extends Model
 {

@@ -6,7 +6,7 @@ namespace App\Models;
 
 use Exception;
 
-class GenericModel extends Model
+class CoreModel extends Model
 {
     private $ids = [];
 
@@ -26,8 +26,6 @@ class GenericModel extends Model
 
     public function massDelete($table): bool
     {
-        var_dump($this->ids);
-
         try {
             $qMarks = str_repeat('?,', count($this->ids) - 1) . '?';
             $sqlQuery = "DELETE FROM `$table` WHERE id IN ($qMarks)";

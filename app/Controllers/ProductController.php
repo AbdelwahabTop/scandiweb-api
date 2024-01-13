@@ -4,20 +4,15 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Models\ProductsTypes\Book;
-use App\Models\ProductsTypes\DVD;
-use App\Models\ProductsTypes\Furniture;
 use App\Factories\ProductFactory;
-use App\Models\GenericModel;
-use App\Models\Model;
-
+use App\Models\CoreModel;
 class ProductController
 {
-    private GenericModel $model;
+    private CoreModel $model;
 
     public function __construct()
     {
-        $this->model = new GenericModel();
+        $this->model = new CoreModel();
     }
 
     public function getAll(): string
