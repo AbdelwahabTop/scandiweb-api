@@ -1,38 +1,23 @@
 <?php
 
+// This is the abstract class that all products will extend from and will contain the common properties and methods
+/* note: this class dosen't include get() and delete() methods as they are not necessary for every product type. 
+Instead, we utilize these methods from a more generic class.*/
+
 namespace App\Models;
 
+use App\App;
 use Exception;
+use App\Database\DB;
 use App\Models\Model;
-/*
-In the main bracnh, I used setters to validate the data before inserting it into the database.
-but in (magic-setters-getters) branch, I used magic methods to decrease the code size.
-branch link for bitbucket: https://bitbucket.org/abdelwahab5/scandiweb-api/src/magic-setters-getters/app/Models/ProductsModel.php
-for github: https://github.com/AbdelwahabTop/scandiweb-api/blob/magic-setters-getters/app/Models/ProductsModel.php
-*/
 
-class ProductsModel extends Model
+abstract class ProductsModel extends Model
 {
     private $id;
-    private $ids;
     private $sku;
     private $name;
     private $price;
     private $attribute;
-
-    public function get(): array
-    {
-        $sqlQuery = "SELECT * FROM `products`";
-
-        $statement = $this->db->query($sqlQuery);
-
-        $data = [];
-
-        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
-            $data[] = $row;
-        }
-        return $data;
-    }
 
     public function create(): string
     {
@@ -58,45 +43,12 @@ class ProductsModel extends Model
         }
     }
 
-    public function delete(): bool
-    {
-        try {
-            $qMarks = str_repeat('?,', count($this->ids) - 1) . '?';
-            $sqlQuery = "DELETE FROM `products` WHERE id IN ($qMarks)";
-            $statement = $this->db->prepare($sqlQuery);
 
-            foreach ($this->ids as $k => $id) {
-                $statement->bindValue(($k + 1), $id);
-            }
-
-            $statement->execute();
-
-            if ($statement->rowCount() > 0) {
-                return true;
-            }
-
-            return false;
-        } catch (\PDOException $e) {
-            return false;
-        }
-    }
 
     // Setters
     public function setId($id)
     {
         return $this->id = $id;
-    }
-
-    public function setIds(array $ids)
-    {
-        foreach ($ids as $id) {
-            if ($id <= 0) {
-                throw new Exception(
-                    "Invalid ID value. IDs must be positive integers."
-                );
-            }
-        }
-        $this->ids = $ids;
     }
 
     public function setSku(string $sku): void
@@ -145,11 +97,6 @@ class ProductsModel extends Model
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getIds()
-    {
-        return $this->ids;
     }
 
     public function getSku()
