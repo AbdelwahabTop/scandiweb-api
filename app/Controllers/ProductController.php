@@ -1,34 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers;
 
-use App\Models\DVD;
-use App\Models\Book;
-use App\Models\Furniture;
-use App\Models\ProductsModel;
-use App\Controllers\Controller;
 use App\Factories\ProductFactory;
+use App\Models\CoreModel;
 
-class ProductController extends Controller
+class ProductController
 {
-    private ProductsModel $gateway;
+    private CoreModel $coreModel;
 
     public function __construct()
     {
-        $this->gateway = $this->model("ProductsModel");
+        $this->coreModel = new CoreModel();
     }
 
     public function getAll(): string
     {
-        return json_encode($this->gateway->get());
+        return json_encode($this->coreModel->get("products"));
     }
 
     public function create()
     {
         $data = (array) json_decode(file_get_contents("php://input"), true);
-        // echo var_dump($data);
-        var_dump($data['attributes']);
-
 
         $productClass = ProductFactory::create(
             $data['type'],
@@ -38,9 +33,8 @@ class ProductController extends Controller
             $productClass->setSku($data['sku']);
             $productClass->setName($data['name']);
             $productClass->setPrice($data['price']);
-            $description = $productClass->description($data['attributes']);
+            $description = $productClass->makeDescription($data['attributes']);
             $productClass->setAttribute($description);
-
         } catch (\Exception $e) {
             http_response_code(400);
             return $e->getMessage();
@@ -53,22 +47,23 @@ class ProductController extends Controller
             return "Product {$productClass->getSku()} Added Successfully";
         } else {
             http_response_code(400);
-            return "Error Adding Product {$this->gateway->getSku()}";
+            return "Error Adding Product, Skus must be unique";
         }
     }
 
     public function delete(): string
     {
         $data = (array) json_decode(file_get_contents("php://input"), true);
+        var_dump($data["ids"]);
 
         try {
-            $this->gateway->setIds($data["ids"]);
+            $this->coreModel->setIds($data["ids"]);
         } catch (\Exception $e) {
             http_response_code(400);
             return $e->getMessage();
         }
 
-        $status = $this->gateway->delete();
+        $status = $this->coreModel->massDelete("products");
 
         if ($status) {
             http_response_code(200);
