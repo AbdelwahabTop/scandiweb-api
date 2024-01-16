@@ -6,26 +6,24 @@ namespace App\Controllers;
 
 use App\Factories\ProductFactory;
 use App\Models\CoreModel;
+
 class ProductController
 {
-    private CoreModel $model;
+    private CoreModel $coreModel;
 
     public function __construct()
     {
-        $this->model = new CoreModel();
+        $this->coreModel = new CoreModel();
     }
 
     public function getAll(): string
     {
-        return json_encode($this->model->get("products"));
+        return json_encode($this->coreModel->get("products"));
     }
 
     public function create()
     {
         $data = (array) json_decode(file_get_contents("php://input"), true);
-        // echo var_dump($data);
-        var_dump($data['attributes']);
-
 
         $productClass = ProductFactory::create(
             $data['type'],
@@ -59,13 +57,13 @@ class ProductController
         var_dump($data["ids"]);
 
         try {
-            $this->model->setIds($data["ids"]);
+            $this->coreModel->setIds($data["ids"]);
         } catch (\Exception $e) {
             http_response_code(400);
             return $e->getMessage();
         }
 
-        $status = $this->model->massDelete("products");
+        $status = $this->coreModel->massDelete("products");
 
         if ($status) {
             http_response_code(200);

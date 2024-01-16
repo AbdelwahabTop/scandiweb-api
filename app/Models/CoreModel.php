@@ -57,7 +57,6 @@ class CoreModel extends Model
             }
         }
         $this->ids = $ids;
-        var_dump($this->ids);
     }
 
     public function getIds()
