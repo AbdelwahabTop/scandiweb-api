@@ -70,6 +70,7 @@ attribute: "Size: 200 MB"
   `POST`
 
 * **Data Params**
+  `type:String `
 
   `sku:String `
   
@@ -77,19 +78,42 @@ attribute: "Size: 200 MB"
   
   `price:Float string `
   
-  `attribute:String `
+  `attribute:array `
 
 * **Sample Call:**
 
   ```axios
     let temp = {
-    id: "2",
-    sku: "JVC990",
-    name: "Acme Disc",
-    price: "50.60",
-    attribute: "Size: 700 MB"
+    "type": "DVD",
+    "sku": "JVC990",
+    "name": "Acme Disc",
+    "price": "50.60",
+    "attribute": {
+         "size": "98"
+      }
+    }
+
+   {
+    "type": "book",
+    "sku": "JVC990",
+    "name": "Acme Disc",
+    "price": "50.60",
+    "attribute": {
+         "weight": "98"
+      }
     }
   
+  {
+    "type": "furniture",
+    "sku": "JVC990",
+    "name": "Acme Disc",
+    "price": "50.60",
+    "attribute": {
+        "height": "89",
+         "width": "89",
+         "length": "589",
+      }
+    }
    async (temp) => {
   return await axios.post("https://scandiweb-abdo.000webhostapp.com/products", JSON.stringify(temp));
   };
@@ -118,7 +142,7 @@ As a result, I added an additional route (/products/delete) alongside the existi
 
   ```axios
   let temp = {
-    ids: [1, 2, 3, 4]
+    "ids": [1, 2, 3, 4]
   }
     async (temp) => {
     return await axios.post("https://scandiweb-abdo.000webhostapp.com/products/delete", JSON.stringify(temp));
