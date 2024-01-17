@@ -1,12 +1,12 @@
 # Rest API in MVC and OOP for a simple ecommerce store [Front-end Part](https://github.com/AbdelwahabTop/scandiweb-ui)
-[Front-end Part](#Front-end-Part)
-[Installation](#installation)
-[Installation](#installation)
-[Installation](#installation)
+
+[Tools](#Tools)
+[Instructions](#Instructions)
+[How To Use the API](#use)
 
 # [### Front-end Part](https://github.com/AbdelwahabTop/scandiweb-ui)
 
-# Tools
+### Tools
   * PHP 8.2
   * Docker
   * Nginx
@@ -20,9 +20,7 @@
 4. Make sure that whatever database name you enter actually exists, if not, create that database.
 5. Confirm that once you open your `http://localhost:8000` it loads the home page.
 
- ### installation
-
-
+### How To Use the API {#use}
  **Get Products**
 ----
   Returns json data of all products.
