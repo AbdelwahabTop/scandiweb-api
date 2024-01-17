@@ -4,7 +4,6 @@
 [Instructions](#Instructions)
 [How To Use the API](#use)
 
-# [Front-end Part](https://github.com/AbdelwahabTop/scandiweb-ui)
 
 ### Tools
   * PHP 8.2
