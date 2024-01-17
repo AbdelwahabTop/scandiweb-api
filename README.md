@@ -1,4 +1,5 @@
 # Rest API in MVC and OOP for a simple ecommerce store
+[Jump to Installation](#installation)
 # [Front-end Part](https://github.com/AbdelwahabTop/scandiweb-ui)
 
 # Tools
@@ -14,7 +15,8 @@
 3. Create a `.env` file by copying variables from `.env.example`. Fill in those values in `.env` file.
 4. Make sure that whatever database name you enter actually exists, if not, create that database.
 5. Confirm that once you open your `http://localhost:8000` it loads the home page.
- 
+
+ [Jump to Installation](#installation)
  **Get Products**
 ----
   Returns json data of all products.
