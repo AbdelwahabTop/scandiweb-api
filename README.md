@@ -1,10 +1,10 @@
 # Rest API in MVC and OOP for a simple ecommerce store
-[Front-end Part](#Front-end Part)
+[Front-end Part](#Front-end-Part)
 [Installation](#installation)
 [Installation](#installation)
 [Installation](#installation)
 
-# [### Front-end Part](https://github.com/AbdelwahabTop/scandiweb-ui)
+# [### Front-end-Part](https://github.com/AbdelwahabTop/scandiweb-ui)
 
 # Tools
   * PHP 8.2
