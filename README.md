@@ -1,5 +1,6 @@
 # Rest API in MVC and OOP for a simple ecommerce store
-[Jump to Installation](#installation)
+### Installation {#installation}
+```
 # [Front-end Part](https://github.com/AbdelwahabTop/scandiweb-ui)
 
 # Tools
@@ -17,6 +18,8 @@
 5. Confirm that once you open your `http://localhost:8000` it loads the home page.
 
  [Jump to Installation](#installation)
+
+
  **Get Products**
 ----
   Returns json data of all products.
