@@ -1,6 +1,6 @@
 # Rest API in MVC and OOP for a simple ecommerce store
 ### Installation {#installation}
-```
+
 # [Front-end Part](https://github.com/AbdelwahabTop/scandiweb-ui)
 
 # Tools
