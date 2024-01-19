@@ -96,3 +96,18 @@
    async (temp) => {
      return await axios.post("https://scandiweb-abdo.000webhostapp.com/products", JSON.stringify(temp));
    };
+
+### Delete Products
+- **URL**: `https://scandiweb-abdo.000webhostapp.com/products/delete`
+- **Method**: `POST`
+- **Data Params**:
+  - **ids**: [1, 2, 3, 4]
+- **Sampel Call**: 
+  ```javascript
+  const temp = {
+  "ids": [1, 2, 3, 4]
+  };
+
+   async (temp) => {
+     return await axios.post("https://scandiweb-abdo.000webhostapp.com/products/delete", JSON.stringify(temp));
+   };
