@@ -48,3 +48,13 @@
     const products = await axios.get("https://scandiweb-abdo.000webhostapp.com/products");
     return products;
   };
+
+### Add Product
+- **URL**: `https://scandiweb-abdo.000webhostapp.com/products`
+- **Method**: `POST`
+- **Data Params**:
+  - **type**: string
+  - **sku**: string
+  - **name**: string
+  - **price**: number
+  - **attribute**:  array
