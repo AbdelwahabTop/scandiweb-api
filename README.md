@@ -58,3 +58,41 @@
   - **name**: string
   - **price**: number
   - **attribute**:  array
+- **Sampel Call**: 
+  ```javascript
+  const temp = {
+  "type": "DVD",
+  "sku": "JVC990",
+  "name": "Acme Disc",
+  "price": "50.60",
+  "attribute": {
+     "size": "98"
+    }
+  };
+
+    Additional examples:
+    {
+      "type": "book",
+      "sku": "JVC990",
+      "name": "Acme Disc",
+      "price": "50.60",
+      "attribute": {
+        "weight": "98"
+      }
+    }
+   
+    {
+      "type": "furniture",
+      "sku": "JVC990",
+      "name": "Acme Disc",
+      "price": "50.60",
+      "attribute": {
+        "height": "89",
+        "width": "89",
+     "length": "589"
+   }
+  }
+
+   async (temp) => {
+     return await axios.post("https://scandiweb-abdo.000webhostapp.com/products", JSON.stringify(temp));
+   };
