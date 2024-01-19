@@ -1,6 +1,6 @@
 <?php
 
-// this model holds the methods that may be used by all models
+// this model holds the methods that may be used by all models by inheretence or by composition
 
 namespace App\Models;
 
